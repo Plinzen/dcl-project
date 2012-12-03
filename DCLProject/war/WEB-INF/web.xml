@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	
+
 	<!-- GAE 1.6.3 cannot handle server side (JSF default) state management. -->
 	<context-param>
+		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
 	</context-param>
 	<context-param>
-        <param-name>com.sun.faces.enableThreading</param-name>
-        <param-value>false</param-value>
-        <description>
-        When enabled, the runtime initialization and default ResourceHandler 
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>resources.application</param-value>
+	</context-param>
+	<context-param>
+	    <description>When enabled, the runtime initialization and default ResourceHandler 
         implementation will use threads to perform their functions. Set this 
         value to false if threads aren't desired (as in the case of running 
         within the Google Application Engine).
 
         Note that when this option is disabled, the ResourceHandler will not 
         pick up new versions of resources when ProjectStage is development.
-        </description>
+        </description>	    
+		<param-name>com.sun.faces.enableThreading</param-name>
+		<param-value>false</param-value>		
+	</context-param>
 
-    </context-param>
-    
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+  <listener>
+    <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+  </listener>
 	<!-- JSF mapping -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>	
+	</servlet>
 	<servlet>
 		<servlet-name>DCLProject</servlet-name>
 		<servlet-class>de.schott.gae.DCLProjectServlet</servlet-class>
 	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>DCLProject</servlet-name>
 		<url-pattern>/dclproject</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>welcome.xhtml</welcome-file>
+		<welcome-file>faces/hello.xhtml</welcome-file>
 	</welcome-file-list>
-	
+
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
@@ -54,17 +66,17 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	
- <servlet>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-  <init-param>
-   <param-name>services</param-name>
-   <param-value/>
-  </init-param>
- </servlet>
- <servlet-mapping>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <url-pattern>/_ah/spi/*</url-pattern>
- </servlet-mapping>
+
+	<servlet>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+		<init-param>
+			<param-name>services</param-name>
+			<param-value/>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<url-pattern>/_ah/spi/*</url-pattern>
+	</servlet-mapping>
 </web-app>
