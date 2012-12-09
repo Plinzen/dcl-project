@@ -13,9 +13,9 @@ import javax.persistence.Query;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
-import de.schott.gae.football.dao.DatabaseException;
 import de.schott.gae.football.dao.IAccountDao;
 import de.schott.gae.football.dto.Account;
+import de.schott.gae.football.shared.DatabaseException;
 
 /**
  * Account-DAO implementation for JPA.

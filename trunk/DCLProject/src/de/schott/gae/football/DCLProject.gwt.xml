@@ -24,7 +24,6 @@
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
-  <source path='dto'/>
   <source path='shared'/>
 
 </module>

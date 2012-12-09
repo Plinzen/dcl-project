@@ -3,11 +3,10 @@
  */
 package de.schott.gae.football;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
-import com.google.gwt.dev.util.collect.HashMap;
 
 import de.schott.gae.football.dao.DAOFactoryInterface;
 

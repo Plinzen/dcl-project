@@ -9,9 +9,9 @@ import javax.persistence.EntityManager;
 
 import com.google.appengine.api.datastore.Key;
 
-import de.schott.gae.football.dao.DatabaseException;
 import de.schott.gae.football.dao.ILeagueDao;
 import de.schott.gae.football.dto.League;
+import de.schott.gae.football.shared.DatabaseException;
 
 /**
  * League-DAO implementation for JPA.

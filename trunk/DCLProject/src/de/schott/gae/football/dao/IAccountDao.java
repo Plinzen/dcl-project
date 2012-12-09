@@ -6,6 +6,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
 import de.schott.gae.football.dto.Account;
+import de.schott.gae.football.shared.DatabaseException;
 
 /**
  * Defines necessary operations for working with {@link Account}s.

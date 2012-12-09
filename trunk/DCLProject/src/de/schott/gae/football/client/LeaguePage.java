@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.schott.gae.football.dto.League;
+import de.schott.gae.football.shared.TransferObject;
 
 public class LeaguePage {
 	
@@ -61,13 +61,13 @@ public class LeaguePage {
 		Panel root = RootPanel.get(FootballEntry.CONTENT_ID);
 		
 		// Set up callbacks.
-		AsyncCallback<List<League>> leagueCallback = new AbstractAsyncCallback<List<League>>() {
-			public void onSuccess(List<League> result) {
+		AsyncCallback<List<TransferObject>> leagueCallback = new AbstractAsyncCallback<List<TransferObject>>() {
+			public void onSuccess(List<TransferObject> result) {
 				tableLeague.clear();
 				tableLeague.setText(0, 0, "Name");
 				int row = 1;
-				for (League l : result){
-					tableLeague.setText(row++, 0, l.getName());
+				for (TransferObject l : result){
+					tableLeague.setText(row++, 0, (String) l.get("name"));
 				}
 			}
 		};

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package de.schott.gae.football.dao;
+package de.schott.gae.football.shared;
+
+import java.io.Serializable;
 
 /**
  * Common database exception.
@@ -9,7 +11,7 @@ package de.schott.gae.football.dao;
  * @author plinzen
  *
  */
-public class DatabaseException extends Exception {
+public class DatabaseException extends Exception implements Serializable{
 
 	/**
 	 * 

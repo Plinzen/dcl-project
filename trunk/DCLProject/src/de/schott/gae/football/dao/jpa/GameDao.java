@@ -11,10 +11,10 @@ import javax.persistence.Query;
 
 import com.google.appengine.api.datastore.Key;
 
-import de.schott.gae.football.dao.DatabaseException;
 import de.schott.gae.football.dao.IGameDao;
 import de.schott.gae.football.dto.Game;
 import de.schott.gae.football.dto.League;
+import de.schott.gae.football.shared.DatabaseException;
 
 /**
  * Game-DAO implementation for JPA.

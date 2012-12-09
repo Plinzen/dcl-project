@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.appengine.api.datastore.Key;
 
 import de.schott.gae.football.dto.League;
+import de.schott.gae.football.shared.DatabaseException;
 
 /**
  * Defines necessary operations for working with {@link League}s.
