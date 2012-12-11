@@ -8,10 +8,10 @@ import javax.persistence.ManyToOne;
 
 import com.google.appengine.api.datastore.Key;
 
-@Entity
+@Entity(name="Comment")
 public class Comment {
 	private Key id;
-	private Game game;
+	private Key game;
 	private Account account;
 
 	private Integer minute;
@@ -28,11 +28,11 @@ public class Comment {
 	}
 	
 	@ManyToOne
-	public Game getGame() {
+	public Key getGame() {
 		return game;
 	}
 
-	public void setGame(Game game) {
+	public void setGame(Key game) {
 		this.game = game;
 	}
 

@@ -1,4 +1,11 @@
-<!-- Indices written at Mon, 10 Dec 2012 09:42:27 CET -->
+<!-- Indices written at Tue, 11 Dec 2012 20:31:10 CET -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 4078 times in query history -->
+    <datastore-index kind="Comment" ancestor="false" source="auto">
+        <property name="game" direction="asc"/>
+        <property name="minute" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

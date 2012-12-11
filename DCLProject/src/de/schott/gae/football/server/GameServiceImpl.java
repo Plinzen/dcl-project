@@ -87,9 +87,10 @@ public class GameServiceImpl extends RemoteServiceServlet implements
 			List<TransferObject> tos = new ArrayList<TransferObject>(comments.size());
 			for (Comment c : comments){
 				TransferObject to = new TransferObject();
-				to.put("id", c.getId());
+				to.put("id", KeyFactory.keyToString(c.getId()));
 				to.put("minute", c.getMinute());
 				to.put("message", c.getMessage());
+				to.put("account", c.getAccount().getGoogleAccount().getEmail());
 				tos.add(to);				
 			}
 			return tos;			
@@ -122,19 +123,14 @@ public class GameServiceImpl extends RemoteServiceServlet implements
 			account = daoAccount.persist(account); // now with id.
 		}
 		
+		
 		Game game = daoGame.get(KeyFactory.stringToKey(gameId));
 		if (game != null){
-			Comment comment = new Comment();
-			comment.setAccount(account);
-			comment.setGame(game);
-			comment.setMessage(message);
-			comment.setMinute(minute);
-			comment = daoComment.persist(comment);
-			account.getComments().add(comment);
-			daoAccount.persist(account);			
+			daoComment.persist(account.getId(), game.getId(), minute, message);
 		} else {
 			throw new DatabaseException("Game not found.");
 		}
+		
 	}
 	
 	/*

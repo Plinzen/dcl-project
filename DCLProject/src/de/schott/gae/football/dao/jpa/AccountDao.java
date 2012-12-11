@@ -72,7 +72,13 @@ public class AccountDao implements IAccountDao {
 	 */
 	@Override
 	public Account persist(Account account) throws DatabaseException {
-		return mEntityManager.merge(account);			
+		if (account.getId() == null){
+			mEntityManager.persist(account);
+			mEntityManager.refresh(account);
+			return account;
+		} else {
+			return mEntityManager.merge(account);	
+		}
 	}
 
 }

@@ -45,6 +45,7 @@ public class LeagueDao implements ILeagueDao {
 	 */
 	@Override
 	public List<League> getAll() throws DatabaseException {
+		@SuppressWarnings("unchecked")
 		List<League> leagues = mEntityManager.createQuery("Select a from League a").getResultList();
 		// Workaround for FetchType.EAGER
 		for (League l : leagues){
@@ -60,7 +61,13 @@ public class LeagueDao implements ILeagueDao {
 	 */
 	@Override
 	public League persist(League league) throws DatabaseException {
-		return mEntityManager.merge(league);			
+		if (league.getId() == null) {
+			mEntityManager.persist(league);
+			mEntityManager.refresh(league);
+			return league;
+		} else {
+			return mEntityManager.merge(league);	
+		}
 	}
 
 }

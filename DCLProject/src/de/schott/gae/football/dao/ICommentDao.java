@@ -55,4 +55,15 @@ public interface ICommentDao {
 	 * @throws DatabaseException in case of error
 	 */
 	Comment persist(Comment comment) throws DatabaseException;	
+	
+	/**
+	 * Storing a {@link Comment} and create all necessary links to other objects.
+	 * 
+	 * @param accountId The User {@link Account}.
+	 * @param gameId The {@link Game} for which the Comment takes place.
+	 * @param minute Input data for comment
+	 * @param message INput data for comment.
+	 * @return persisted {@link Comment} object
+	 */
+	Comment persist(Key accountId, Key gameId, Integer minute, String message) throws DatabaseException;
 }

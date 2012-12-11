@@ -86,9 +86,18 @@ table.league_table{
 	margin-top: 1em;
 }
 
+table.game_table {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
 button.menu_button {
 	margin-top: 1em;
 	width: 15em;
+}
+
+.textthreesigns {
+	width: 4em;
 }
 
 
