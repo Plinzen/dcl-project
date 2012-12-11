@@ -45,6 +45,7 @@ public class GameDao implements IGameDao {
 	 */
 	@Override
 	public List<Game> getAll() throws DatabaseException {
+		@SuppressWarnings("unchecked")
 		List<Game> games = mEntityManager.createQuery("Select a from Game a").getResultList();
 		return games;
 	}
@@ -55,7 +56,13 @@ public class GameDao implements IGameDao {
 	 */
 	@Override
 	public Game persist(Game game) throws DatabaseException {
-		return mEntityManager.merge(game);			
+		if (game.getId() == null){
+			mEntityManager.persist(game);
+			mEntityManager.refresh(game);
+			return game;
+		} else {
+			return mEntityManager.merge(game);	
+		}
 	}
 	
 	/*

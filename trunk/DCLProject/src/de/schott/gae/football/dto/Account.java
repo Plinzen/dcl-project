@@ -1,5 +1,6 @@
 package de.schott.gae.football.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,6 +20,10 @@ public class Account {
 	private User googleAccount;	
 	private List<Comment> comments;
 
+	public Account(){
+		comments = new ArrayList<Comment>();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Key getId() {

@@ -57,7 +57,13 @@ public class TeamDao implements ITeamDao {
 	 */
 	@Override
 	public Team persist(Team team) throws DatabaseException {
-		return mEntityManager.merge(team);			
+		if (team.getId() == null){
+			mEntityManager.persist(team);
+			mEntityManager.refresh(team);
+			return team;
+		} else {
+			return mEntityManager.merge(team);	
+		}
 	}
 
 }

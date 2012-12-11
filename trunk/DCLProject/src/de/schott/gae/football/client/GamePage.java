@@ -7,6 +7,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -20,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.schott.gae.football.shared.TransferObject;
 
 public class GamePage {
-	
+	private static final int REFRESH_INTERVALL = 5000;
 	private static final DateTimeFormat DF = DateTimeFormat.getFormat("d.M.y H:mm");
 	
 	private UserServiceAsync mUserService;
@@ -35,11 +37,19 @@ public class GamePage {
 	public GamePage(){
 		
 		mTableComments = new FlexTable();
+		mTableComments.setStyleName("game_table");
+		mTableComments.setWidth("100%");
+		mTableComments.getColumnFormatter().setWidth(0, "15%");
+		mTableComments.getColumnFormatter().setWidth(1, "60%");
+		mTableComments.getColumnFormatter().setWidth(2, "25%");
+		
 		mLblHeader = new Label("Team 1 vs. Team 2 (0:0)");
 		mLblHeader.setStyleName("h1");
 		
 		mTxtComment = new TextBox();
 		mTxtMinute = new TextBox();
+		mTxtMinute.setMaxLength(3);
+		mTxtMinute.setWidth("3em");
 		mBtnSave = new Button("Add comment");
 	
 		// Initialize the service proxy.
@@ -86,6 +96,14 @@ public class GamePage {
 		mGameService.getGame(gameId, gameCallback);
 		
 		reloadComments(gameId);
+		// Setup timer to refresh list automatically.
+		Timer refreshTimer = new Timer() {
+			@Override
+			public void run() {
+				reloadComments(gameId);
+			}
+		};
+		refreshTimer.scheduleRepeating(REFRESH_INTERVALL);
 		
 		final AsyncCallback<Void> saveCallback = new AbstractAsyncCallback<Void>() {
 			@Override
@@ -97,16 +115,23 @@ public class GamePage {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				int minute = Integer.parseInt(mTxtMinute.getText());
-				String message = mTxtComment.getText();
-				if (minute <= 0){
-					
-				} else if (message == null || message.isEmpty()){
-					
-				} else {
-					mGameService.saveComment(gameId, minute, message, saveCallback);	
-				}				
-				
+				try {
+					int minute = Integer.parseInt(mTxtMinute.getText());
+					String message = mTxtComment.getText();
+					if (minute <= 0){
+						Window.alert("Please enter a correct minute.");
+					} else if (message == null || message.isEmpty()){
+						Window.alert("Please enter a correct message.");
+					} else {
+						mGameService.saveComment(gameId, minute, message, saveCallback);
+						mTxtComment.setText("");
+						mTxtMinute.setText("");
+					}				
+
+				} catch (NumberFormatException e){
+					Window.alert("Please enter a correct minute.");					
+				}
+								
 			}
 		});
 		
@@ -134,10 +159,12 @@ public class GamePage {
 				int row = 0;
 				mTableComments.setText(row, 0, "Minute");
 				mTableComments.setText(row, 1, "Message");
+				mTableComments.setText(row, 2, "User");
 				row++;
 				for (TransferObject to : result){
 					mTableComments.setText(row, 0, ((Integer) to.get("minute")).toString());
 					mTableComments.setText(row, 1, (String) to.get("message"));
+					mTableComments.setText(row, 2, (String) to.get("account"));
 					row++;
 				}
 			}
