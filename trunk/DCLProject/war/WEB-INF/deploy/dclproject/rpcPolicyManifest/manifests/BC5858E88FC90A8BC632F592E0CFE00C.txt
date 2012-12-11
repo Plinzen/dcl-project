@@ -1,2 +1,0 @@
-serviceClass: de.schott.gae.football.client.UserService
-path: FBB14A75991A32634FE02DD6F1CEC7F0.gwt.rpc
