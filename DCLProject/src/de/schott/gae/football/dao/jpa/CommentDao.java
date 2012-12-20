@@ -88,7 +88,7 @@ public class CommentDao implements ICommentDao {
 	}
 
 	@Override
-	public Comment persist(Key accountKey, Key gameId, Integer minute,
+	public Comment persist(Key accountKey, Key gameId, Long minute,
 			String message) {
 		EntityTransaction txn = mEntityManager.getTransaction();
 		txn.begin();

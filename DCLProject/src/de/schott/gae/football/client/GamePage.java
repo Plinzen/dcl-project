@@ -162,7 +162,7 @@ public class GamePage {
 				mTableComments.setText(row, 2, "User");
 				row++;
 				for (TransferObject to : result){
-					mTableComments.setText(row, 0, ((Integer) to.get("minute")).toString());
+					mTableComments.setText(row, 0, ((Long) to.get("minute")).toString());
 					mTableComments.setText(row, 1, (String) to.get("message"));
 					mTableComments.setText(row, 2, (String) to.get("account"));
 					row++;

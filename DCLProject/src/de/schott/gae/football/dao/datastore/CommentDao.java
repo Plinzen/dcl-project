@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -32,10 +33,10 @@ import de.schott.gae.football.shared.DatabaseException;
  */
 public class CommentDao implements ICommentDao {
 	
-	private static final String KIND = "Comment";
-	private static final String GAME_ID = "game";
-	private static final String MESSAGE = "message";
-	private static final String MINUTE = "minute";
+	static final String KIND = "Comment";
+	static final String GAME_ID = "game";
+	static final String MESSAGE = "message";
+	static final String MINUTE = "minute";
 	
 	private DatastoreService mDatastore;
 	
@@ -57,11 +58,11 @@ public class CommentDao implements ICommentDao {
 		Comment c = new Comment();
 		c.setId(entity.getKey());
 		c.setMessage((String) entity.getProperty(MESSAGE));
-		c.setMinute((Integer) entity.getProperty(MINUTE));
+		c.setMinute((Long) entity.getProperty(MINUTE));
 		c.setGame((Key) entity.getProperty(GAME_ID));
 		
 		Entity parent = mDatastore.get(entity.getParent());
-		Account account = AccountDao.toObject(parent);
+		Account account = AccountDao.toObject(parent, mDatastore);
 		c.setAccount(account);
 		
 		return c;
@@ -70,9 +71,7 @@ public class CommentDao implements ICommentDao {
 	@Override
 	public List<Comment> getForUser(Account user) throws DatabaseException {
 		final Key parent = user.getId();
-		final Query query = new Query(parent);
-		final Filter filter = FilterOperator.GREATER_THAN.of(Entity.KEY_RESERVED_PROPERTY, parent);
-		query.setFilter(filter);
+		final Query query = new Query(KIND, parent);
 		query.addSort(MINUTE);
 		return toCommentList(query);
 	}
@@ -133,7 +132,7 @@ public class CommentDao implements ICommentDao {
 	}
 
 	@Override
-	public Comment persist(Key accountId, Key gameId, Integer minute,
+	public Comment persist(Key accountId, Key gameId, Long minute,
 			String message) throws DatabaseException {
 		
 		Transaction txn = mDatastore.beginTransaction();
@@ -149,6 +148,9 @@ public class CommentDao implements ICommentDao {
 			Entity account = mDatastore.get(accountId);
 			@SuppressWarnings("unchecked")
 			Collection<Key> comments = (Collection<Key>) account.getProperty(AccountDao.COMMENTS);
+			if (comments == null) {
+				comments = new Vector<Key>();
+			}
 			comments.add(e.getKey());
 			account.setProperty(AccountDao.COMMENTS, comments);
 			mDatastore.put(txn, account);

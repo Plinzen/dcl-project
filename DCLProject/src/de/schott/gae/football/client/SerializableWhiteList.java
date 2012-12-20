@@ -12,4 +12,5 @@ public class SerializableWhiteList implements Serializable {
 	public Integer dummyInt;
 	public Long dummyLong;
 	public Date dummyDate;
+	public Boolean dummyBoolean;
 }

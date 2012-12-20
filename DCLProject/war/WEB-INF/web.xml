@@ -47,7 +47,17 @@
 		<servlet-name>gameServiceImpl</servlet-name>
 		<url-pattern>/dclproject/gameservice</url-pattern>
 	</servlet-mapping>
-	
+
+		
+	<servlet>
+		<servlet-name>databaseServiceImpl</servlet-name>
+		<servlet-class>de.schott.gae.football.server.DatabaseServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>databaseServiceImpl</servlet-name>
+		<url-pattern>/dclproject/databaseservice</url-pattern>
+	</servlet-mapping>	
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>DCLProject.html</welcome-file>

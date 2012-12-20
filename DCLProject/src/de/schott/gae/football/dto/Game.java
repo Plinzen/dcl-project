@@ -28,14 +28,14 @@ public class Game implements Serializable{
 	private Key team1;
 	private Key team2;
 
-	private Integer goals1;
-	private Integer goals2;
+	private Long goals1;
+	private Long goals2;
 	
 	public Game(){
 		
 	}
 	
-	public Game(Date date, League league, Key team1, Key team2, Integer goals1, Integer goals2){
+	public Game(Date date, League league, Key team1, Key team2, Long goals1, Long goals2){
 		setDate(date);
 		setLeague(league);
 		setTeam1(team1);
@@ -70,19 +70,19 @@ public class Game implements Serializable{
 		this.team2 = team2;
 	}
 
-	public Integer getGoals1() {
+	public Long getGoals1() {
 		return goals1;
 	}
 
-	public void setGoals1(Integer goals1) {
+	public void setGoals1(Long goals1) {
 		this.goals1 = goals1;
 	}
 
-	public Integer getGoals2() {
+	public Long getGoals2() {
 		return goals2;
 	}
 
-	public void setGoals2(Integer goals2) {
+	public void setGoals2(Long goals2) {
 		this.goals2 = goals2;
 	}
 

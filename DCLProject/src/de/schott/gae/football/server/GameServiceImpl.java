@@ -126,7 +126,8 @@ public class GameServiceImpl extends RemoteServiceServlet implements
 		
 		Game game = daoGame.get(KeyFactory.stringToKey(gameId));
 		if (game != null){
-			daoComment.persist(account.getId(), game.getId(), minute, message);
+			Long minuteL = minute.longValue();
+			daoComment.persist(account.getId(), game.getId(), minuteL, message);
 		} else {
 			throw new DatabaseException("Game not found.");
 		}

@@ -32,7 +32,7 @@ import de.schott.gae.football.shared.DatabaseException;
  */
 public class AccountDao implements IAccountDao {
 	
-	private static final String KIND = "account";
+	private static final String KIND = "Account";
 	static final String COMMENTS = "comments";
 	private static final String GOOGLE_ACCOUNT = "googleAccount";
 	
@@ -49,19 +49,31 @@ public class AccountDao implements IAccountDao {
 	public Account get(Key id) throws DatabaseException {
 		try {
 			Entity e = mDatastore.get(id);
-			return toObject(e);
+			return toObject(e, mDatastore);
 		} catch (EntityNotFoundException e1) {
 			return null;
 		}
 	}
 	
-	static Account toObject(Entity entity) throws DatabaseException{
+	static Account toObject(Entity entity, DatastoreService dataStore) throws DatabaseException{
 		Account a = new Account();
 		a.setId(entity.getKey());
 		a.setGoogleAccount((User) entity.getProperty(GOOGLE_ACCOUNT));
 		
-		CommentDao commentDao = new CommentDao();
-		a.setComments(commentDao.getForUser(a));
+		// Get comments hack
+		final Query query = new Query(KIND, entity.getKey());
+		query.addSort(CommentDao.MINUTE);
+		final Iterator<Entity> it = dataStore.prepare(query).asIterator();
+		final List<Comment> comments = new LinkedList<Comment>();
+		while (it.hasNext()){
+			Comment c = new Comment();
+			c.setId(entity.getKey());
+			c.setMessage((String) entity.getProperty(CommentDao.MESSAGE));
+			c.setMinute((Long) entity.getProperty(CommentDao.MINUTE));
+			c.setGame((Key) entity.getProperty(CommentDao.GAME_ID));
+			c.setAccount(a);
+			comments.add(c);
+		}
 		
 		return a;
 	}
@@ -82,7 +94,7 @@ public class AccountDao implements IAccountDao {
 			if (it.hasNext()){
 				throw new DatabaseException("User not unique!");
 			}
-			return toObject(e);
+			return toObject(e, mDatastore);
 		} else {
 			return null;
 		}
@@ -99,7 +111,7 @@ public class AccountDao implements IAccountDao {
 		Iterator<Entity> it = iterable.iterator();
 		List<Account> accounts = new LinkedList<Account>();
 		while (it.hasNext()){
-			accounts.add(toObject(it.next()));
+			accounts.add(toObject(it.next(), mDatastore));
 		}
 		
 		return accounts;
