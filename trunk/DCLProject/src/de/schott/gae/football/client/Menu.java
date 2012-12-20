@@ -17,6 +17,7 @@ public class Menu {
 	private Label mLblUser;
 	private VerticalPanel mPanelMenu;
 	private Button mBtnGames;
+	private Button mBtnDatabase;
 	private Button mBtnLogin;
 	private Button mBtnLogout;
 	
@@ -54,6 +55,18 @@ public class Menu {
 			}
 		});
 		mPanelMenu.add(mBtnGames);
+		
+		mBtnDatabase = new Button("Database implementation");
+		mBtnDatabase.setStyleName("menu_button", true);		
+		mBtnDatabase.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				DatabasePage page = new DatabasePage();
+				page.createView();				
+			}
+		});
+		mPanelMenu.add(mBtnDatabase);
 		
 		mBtnLogout = new Button("Logout");
 		mBtnLogout.setStyleName("menu_button", true);

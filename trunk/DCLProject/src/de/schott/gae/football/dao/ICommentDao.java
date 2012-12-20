@@ -65,5 +65,5 @@ public interface ICommentDao {
 	 * @param message INput data for comment.
 	 * @return persisted {@link Comment} object
 	 */
-	Comment persist(Key accountId, Key gameId, Integer minute, String message) throws DatabaseException;
+	Comment persist(Key accountId, Key gameId, Long minute, String message) throws DatabaseException;
 }

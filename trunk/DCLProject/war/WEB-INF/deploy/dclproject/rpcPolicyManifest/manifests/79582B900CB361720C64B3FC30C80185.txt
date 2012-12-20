@@ -1,0 +1,2 @@
+serviceClass: de.schott.gae.football.client.LeagueService
+path: 2719537959A71C7DBA70EDBA1152ECBA.gwt.rpc

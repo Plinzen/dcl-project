@@ -14,7 +14,7 @@ public class Comment {
 	private Key game;
 	private Account account;
 
-	private Integer minute;
+	private Long minute;
 	private String message;
 
 	@Id
@@ -45,11 +45,11 @@ public class Comment {
 		this.account = account;
 	}
 
-	public Integer getMinute() {
+	public Long getMinute() {
 		return minute;
 	}
 
-	public void setMinute(Integer minute) {
+	public void setMinute(Long minute) {
 		this.minute = minute;
 	}
 

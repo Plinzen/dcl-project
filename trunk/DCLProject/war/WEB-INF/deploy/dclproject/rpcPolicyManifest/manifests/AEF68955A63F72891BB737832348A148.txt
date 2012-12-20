@@ -1,0 +1,2 @@
+serviceClass: de.schott.gae.football.client.GameService
+path: 57F3C580F185A3DBC067F4559C7A8FAF.gwt.rpc

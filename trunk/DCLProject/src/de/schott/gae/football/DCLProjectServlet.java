@@ -124,39 +124,39 @@ public class DCLProjectServlet extends HttpServlet {
 		cal.set(2012, 8, 20);
 		Date time = cal.getTime();
 		
-		Game g1 = new Game(time, l, bvb.getId(), fcb.getId(), 3, 1);
+		Game g1 = new Game(time, l, bvb.getId(), fcb.getId(), 3L, 1L);
 		em.persist(g1);
 		games.add(g1);
 		
-		Game g2 = new Game(time, l, fcn.getId(), fuert.getId(), 1, 0);
+		Game g2 = new Game(time, l, fcn.getId(), fuert.getId(), 1L, 0L);
 		em.persist(g2);
 		games.add(g2);
 		
-		Game g3 = new Game(time, l, h96.getId(), hsv.getId(), 2, 2);
+		Game g3 = new Game(time, l, h96.getId(), hsv.getId(), 2L, 2L);
 		em.persist(g3);
 		games.add(g3);
 		
-		Game g4 = new Game(time, l, vfb.getId(), svw.getId(), 3 , 4);
+		Game g4 = new Game(time, l, vfb.getId(), svw.getId(), 3L , 4L);
 		em.persist(g4);
 		games.add(g4);
 		
-		Game g5 = new Game(time, l, vfl.getId(), f95.getId(), 1, 1);
+		Game g5 = new Game(time, l, vfl.getId(), f95.getId(), 1L, 1L);
 		em.persist(g5);
 		games.add(g5);
 
-		Game g6 = new Game(time, l, fca.getId(), gladbach.getId(), 2, 0);
+		Game g6 = new Game(time, l, fca.getId(), gladbach.getId(), 2L, 0L);
 		em.persist(g6);
 		games.add(g6);
 		
-		Game g7 = new Game(time, l, sc.getId(), hoff.getId(), 3, 0);
+		Game g7 = new Game(time, l, sc.getId(), hoff.getId(), 3L, 0L);
 		em.persist(g7);
 		games.add(g7);
 		
-		Game g8 = new Game(time, l, s04.getId(), bayer.getId(), 1, 0);
+		Game g8 = new Game(time, l, s04.getId(), bayer.getId(), 1L, 0L);
 		em.persist(g8);
 		games.add(g8);
 
-		Game g9 = new Game(time, l, frank.getId(), mainz.getId(), 0, 0);
+		Game g9 = new Game(time, l, frank.getId(), mainz.getId(), 0L, 0L);
 		em.persist(g9);
 		games.add(g9);	
 		

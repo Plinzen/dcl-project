@@ -1,0 +1,2 @@
+serviceClass: de.schott.gae.football.client.DatabaseService
+path: D1D5467365CBB1DBE15E12A758177DFE.gwt.rpc
