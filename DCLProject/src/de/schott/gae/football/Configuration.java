@@ -19,6 +19,12 @@ import de.schott.gae.football.dao.DAOFactoryInterface;
  *
  */
 public class Configuration {
+	/**
+	 * Flag, that indicates that GAE runs locally or remote on Google-Server.
+	 * true = local!
+	 */
+	public static final boolean RUN_LOCAL = true;
+	
 	private static final String PARAM_DAO = "dao.factory.implementation";	
 	private static final Configuration instance = new Configuration();
 	

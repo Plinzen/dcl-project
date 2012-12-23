@@ -1,5 +1,9 @@
 package de.schott.gae.football.dto;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,9 +13,15 @@ import javax.persistence.ManyToOne;
 import com.google.appengine.api.datastore.Key;
 
 @Entity(name="Comment")
+@PersistenceCapable(table="Comment")
 public class Comment {
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key id;
+	@Persistent
 	private Key game;
+	@Persistent
 	private Account account;
 
 	private Long minute;

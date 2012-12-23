@@ -1,8 +1,11 @@
 package de.schott.gae.football.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,22 +16,26 @@ import javax.persistence.TemporalType;
 
 import com.google.appengine.api.datastore.Key;
 
-@Entity
-public class Game implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+@Entity(name="Game")
+@PersistenceCapable(table="Game")
+public class Game{
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key id;
 
+	@Persistent
 	private Date date;
+	@Persistent
 	private League league;
+	@Persistent
 	private Key team1;
+	@Persistent
 	private Key team2;
 
+	@Persistent
 	private Long goals1;
+	@Persistent
 	private Long goals2;
 	
 	public Game(){
