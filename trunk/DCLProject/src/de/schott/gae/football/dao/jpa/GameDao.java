@@ -46,7 +46,7 @@ public class GameDao implements IGameDao {
 	@Override
 	public List<Game> getAll() throws DatabaseException {
 		@SuppressWarnings("unchecked")
-		List<Game> games = mEntityManager.createQuery("Select a from Game a").getResultList();
+		List<Game> games = mEntityManager.createQuery("Select a from " + Game.class.getName() + " a").getResultList();
 		return games;
 	}
 
@@ -71,7 +71,7 @@ public class GameDao implements IGameDao {
 	 */
 	@Override
 	public List<Game> getByDate(Date date) throws DatabaseException {
-		Query q = mEntityManager.createQuery("Select a from Game a where a.date >= ?1");
+		Query q = mEntityManager.createQuery("Select a from " + Game.class.getName() + " a where a.date >= ?1");
 		q.setParameter(1, date);
 		@SuppressWarnings("unchecked")
 		List<Game> games = q.getResultList();
@@ -85,7 +85,7 @@ public class GameDao implements IGameDao {
 	@Override
 	public List<Game> getByDate(League league, Date date)
 			throws DatabaseException {
-		Query q = mEntityManager.createQuery("Select a from Game a where a.league = ?1 and a.date >= ?2");
+		Query q = mEntityManager.createQuery("Select a from " + Game.class.getName() + " a where a.league = ?1 and a.date >= ?2");
 		q.setParameter(1, league);
 		q.setParameter(2, date);
 		@SuppressWarnings("unchecked")

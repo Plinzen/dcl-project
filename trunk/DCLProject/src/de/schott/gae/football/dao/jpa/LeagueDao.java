@@ -46,7 +46,8 @@ public class LeagueDao implements ILeagueDao {
 	@Override
 	public List<League> getAll() throws DatabaseException {
 		@SuppressWarnings("unchecked")
-		List<League> leagues = mEntityManager.createQuery("Select a from League a").getResultList();
+		List<League> leagues = mEntityManager.createQuery(
+				"Select l from " + League.class.getName() + " l").getResultList();
 		// Workaround for FetchType.EAGER
 		for (League l : leagues){
 			l.getGames();

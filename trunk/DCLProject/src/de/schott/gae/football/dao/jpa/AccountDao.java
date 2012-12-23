@@ -44,7 +44,8 @@ public class AccountDao implements IAccountDao {
 	 */
 	@Override
 	public Account get(User user) throws DatabaseException {
-		Query q = mEntityManager.createQuery("Select a from Account a where a.googleAccount = ?1");
+		Query q = mEntityManager.createQuery(
+				"Select a from " + Account.class.getName() + " a where a.googleAccount = ?1");
 		q.setParameter(1, user);
 		try {
 			return (Account) q.getSingleResult();	
@@ -63,7 +64,8 @@ public class AccountDao implements IAccountDao {
 	@Override
 	public List<Account> getAll() throws DatabaseException {
 		@SuppressWarnings("unchecked")
-		List<Account> accounts = mEntityManager.createQuery("Select a from Account a").getResultList();
+		List<Account> accounts = mEntityManager.createQuery(
+				"Select a from " + Account.class.getName() + " a").getResultList();
 		return accounts;
 	}
 

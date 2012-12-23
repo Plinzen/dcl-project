@@ -44,7 +44,7 @@ public class TeamDao implements ITeamDao {
 	 */
 	@Override
 	public List<Team> getAll(League league) throws DatabaseException {
-		Query q = mEntityManager.createQuery("Select a from Team a where a.league = ?1");
+		Query q = mEntityManager.createQuery("Select a from " + Team.class.getName() + " a where a.league = ?1");
 		q.setParameter(1, league);
 		@SuppressWarnings("unchecked")
 		List<Team> teams = q.getResultList();
