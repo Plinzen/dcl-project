@@ -8,9 +8,26 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("userservice")
 public interface UserService extends RemoteService {
+	/**
+	 * Returns the current registered user.
+	 * or null if none.
+	 * 
+	 * @return
+	 */
 	 String getRegisteredUser();
 	 
+	 /**
+	  * Returns the Login-URL for Google-Login.
+	  * 
+	  * @param redirect The URL for redirection after login.
+	  * @return
+	  */
 	 String getLoginUrl(String redirect);
 	 
+	 /**
+	  * Returns the Logout-URL for Google-Logout.
+	  * @param redirect The URL for redirection after logout
+	  * @return
+	  */
 	 String getLogoutUrl(String redirect);
 }

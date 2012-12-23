@@ -12,6 +12,7 @@ import de.schott.gae.football.client.DatabaseService;
 import de.schott.gae.football.client.SerializableWhiteList;
 import de.schott.gae.football.dao.DAOFactoryInterface;
 import de.schott.gae.football.dao.datastore.DatastoreDaoFactory;
+import de.schott.gae.football.dao.jdo.JDODaoFactory;
 import de.schott.gae.football.dao.jpa.JPADaoFactory;
 import de.schott.gae.football.shared.TransferObject;
 
@@ -32,6 +33,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		mImplementations = new HashMap<Integer, Class<? extends DAOFactoryInterface>>();
 		mImplementations.put(0, JPADaoFactory.class);
 		mImplementations.put(1, DatastoreDaoFactory.class);
+		mImplementations.put(2, JDODaoFactory.class);
 	}
 	
 	/*
@@ -65,6 +67,12 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		to.put("selected", isCurrent(daoFactory, 1));
 		impl.add(to);
 
+		to = new TransferObject();
+		to.put("name", "JDO-Implementation");
+		to.put("id", 2);
+		to.put("selected", isCurrent(daoFactory, 2));
+		impl.add(to);
+		
 		return impl;
 	}
 	

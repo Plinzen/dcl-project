@@ -10,6 +10,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.schott.gae.football.Configuration;
+
 public class Menu {
 	
 	private UserServiceAsync mUserService;
@@ -103,8 +105,13 @@ public class Menu {
 			}
 		};
 
-		// Make the call to the stock price service.
-		mUserService.getLoginUrl("/DCLProject.html?gwt.codesvr=127.0.0.1:9997", cbLoginUrl);
+		// Make the call to the service.		
+		String redirect = "";
+		if (Configuration.RUN_LOCAL){
+			redirect = "/DCLProject.html?gwt.codesvr=127.0.0.1:9997";
+		}
+		
+		mUserService.getLoginUrl(redirect, cbLoginUrl);
 		
 		// Set up the callback object.
 		AsyncCallback<String> cbLogoutUrl = new AbstractAsyncCallback<String>() {
@@ -114,8 +121,8 @@ public class Menu {
 			}
 		};
 
-		// Make the call to the stock price service.
-		mUserService.getLoginUrl("/DCLProject.html?gwt.codesvr=127.0.0.1:9997", cbLogoutUrl);
+		// Make the call to the service.
+		mUserService.getLogoutUrl(redirect, cbLogoutUrl);
 
 		// Add UI-Elements
 		menuPanel.add(mLblMenu);

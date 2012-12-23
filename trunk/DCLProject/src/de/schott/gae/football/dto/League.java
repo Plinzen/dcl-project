@@ -1,9 +1,12 @@
 package de.schott.gae.football.dto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,13 +17,17 @@ import javax.persistence.OneToMany;
 import com.google.appengine.api.datastore.Key;
 
 @Entity(name = "League")
-public class League implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@PersistenceCapable(table="League")
+public class League {
 	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)	
 	private Key id;
+	@Persistent
 	private String name;
+	@Persistent(mappedBy="league")
 	private List<Team> teams;
+	@Persistent(mappedBy="league")
 	private List<Game> games;
 
 	public League(){
