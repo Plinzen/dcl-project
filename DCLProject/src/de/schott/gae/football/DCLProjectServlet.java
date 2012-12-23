@@ -31,6 +31,13 @@ public class DCLProjectServlet extends HttpServlet {
 		resp.setContentType("text/plain");
 		PrintWriter writer = resp.getWriter();
 		
+		installErsteBundesliga();
+		installZweiteBundesliga();
+		
+		writer.print("Installation-Done");
+	}
+	
+	private void installErsteBundesliga(){
 		EntityTransaction txn = em.getTransaction();
 		txn.begin();
 		
@@ -162,8 +169,141 @@ public class DCLProjectServlet extends HttpServlet {
 		
 		em.merge(l);
 		
-		txn2.commit();
+		txn2.commit();		
+	}
+	
+	private void installZweiteBundesliga(){
+		EntityTransaction txn = em.getTransaction();
+		txn.begin();
 		
-		writer.print("Installation-Done");
+		League l = new League();
+		l.setName("2. Bundesliga");
+		List<Team> teams = new ArrayList<Team>();
+		
+		Team team1 = new Team("Eintracht Braunschweig", l);
+		team1 = em.merge(team1);
+		teams.add(team1);
+		
+		Team team2 = new Team("Hertha BSC", l);
+		team2 = em.merge(team2);
+		teams.add(team2);
+		
+		Team team3 = new Team("1. FC Kaiserlautern", l);
+		team3 = em.merge(team3);
+		teams.add(team3);
+		
+		Team team4 = new Team("FC Energie Cottbus", l);
+		team4 = em.merge(team4);
+		teams.add(team4);
+		
+		Team team5 = new Team("VfR Aalen", l);
+		team5 = em.merge(team5);
+		teams.add(team5);
+		
+		Team team6 = new Team("TSV 1860 München", l);
+		team6 = em.merge(team6);
+		teams.add(team6);
+		
+		Team team7 = new Team("1. FC Union Berlin", l);
+		team7 = em.merge(team7);
+		teams.add(team7);
+
+		Team team8 = new Team("FSV Frankfurt 1899", l);
+		team8 = em.merge(team8);
+		teams.add(team8);
+
+		Team team9 = new Team("1. FC Köln", l);
+		team9 = em.merge(team9);
+		teams.add(team9);
+
+		Team team10 = new Team("FC Ingolstadt 04", l);
+		team10 = em.merge(team10);
+		teams.add(team10);
+
+		Team team11 = new Team("FC Erzgebirge Aue", l);
+		team11 = em.merge(team11);
+		teams.add(team11);
+
+		Team team12 = new Team("SC Paderborn 07", l);
+		team12 = em.merge(team12);
+		teams.add(team12);
+
+		Team team13 = new Team("FC St. Pauli", l);
+		team13 = em.merge(team13);
+		teams.add(team13);
+
+		Team team14 = new Team("MSV Duisburg", l);
+		team14 = em.merge(team14);
+		teams.add(team14);
+
+		Team team15 = new Team("VFL Bochunm 1848", l);
+		team15 = em.merge(team15);
+		teams.add(team15);
+
+		Team team16 = new Team("SG Dynamo Dresden", l);
+		team16 = em.merge(team16);
+		teams.add(team16);
+
+		Team team17 = new Team("SV Sandhausen 1916", l);
+		team17 = em.merge(team17);
+		teams.add(team17);
+
+		Team team18 = new Team("SSV Jahn Regensburg", l);
+		team18 = em.merge(team18);
+		teams.add(team18);
+		
+		l.setTeams(teams);
+		l = em.merge(l);		
+		txn.commit();
+		
+		// Create games:
+		EntityTransaction txn2 = em.getTransaction();
+		txn2.begin();
+		
+		List<Game> games = l.getGames();
+		
+		Calendar cal = Calendar.getInstance(Locale.GERMANY);
+		cal.set(2012, 8, 20);
+		Date time = cal.getTime();
+		
+		Game g1 = new Game(time, l, team1.getId(), team2.getId(), 1L, 0L);
+		em.persist(g1);
+		games.add(g1);
+		
+		Game g2 = new Game(time, l, team3.getId(), team4.getId(), 1L, 0L);
+		em.persist(g2);
+		games.add(g2);
+		
+		Game g3 = new Game(time, l, team5.getId(), team6.getId(), 2L, 2L);
+		em.persist(g3);
+		games.add(g3);
+		
+		Game g4 = new Game(time, l, team7.getId(), team8.getId(), 3L , 4L);
+		em.persist(g4);
+		games.add(g4);
+		
+		Game g5 = new Game(time, l, team9.getId(), team10.getId(), 1L, 1L);
+		em.persist(g5);
+		games.add(g5);
+
+		Game g6 = new Game(time, l, team11.getId(), team12.getId(), 2L, 0L);
+		em.persist(g6);
+		games.add(g6);
+		
+		Game g7 = new Game(time, l, team13.getId(), team14.getId(), 3L, 0L);
+		em.persist(g7);
+		games.add(g7);
+		
+		Game g8 = new Game(time, l, team15.getId(), team16.getId(), 1L, 0L);
+		em.persist(g8);
+		games.add(g8);
+
+		Game g9 = new Game(time, l, team17.getId(), team18.getId(), 0L, 0L);
+		em.persist(g9);
+		games.add(g9);	
+		
+		em.merge(l);
+		
+		txn2.commit();		
 	}
 }

@@ -46,7 +46,7 @@ public class CommentDao implements ICommentDao {
 	 */
 	@Override
 	public List<Comment> getForUser(Account user) throws DatabaseException {
-		Query q = mEntityManager.createQuery("Select c from Comment c where c.account = ?1 order by c.minute");
+		Query q = mEntityManager.createQuery("Select c from " + Comment.class.getName() + " c where c.account = ?1 order by c.minute");
 		q.setParameter(1, user);
 		
 		@SuppressWarnings("unchecked")
@@ -60,7 +60,7 @@ public class CommentDao implements ICommentDao {
 	 */
 	@Override
 	public List<Comment> getAll() throws DatabaseException {
-		List<Comment> comments = mEntityManager.createQuery("Select a from Comment a").getResultList();
+		List<Comment> comments = mEntityManager.createQuery("Select a from " + Comment.class.getName() + " a").getResultList();
 		return comments;
 	}
 	
@@ -79,7 +79,7 @@ public class CommentDao implements ICommentDao {
 	 */
 	@Override
 	public List<Comment> getForGame(Game game) throws DatabaseException {
-		Query q = mEntityManager.createQuery("Select c from Comment c where c.game = ?1 order by c.minute");
+		Query q = mEntityManager.createQuery("Select c from " + Comment.class.getName() + " c where c.game = ?1 order by c.minute");
 		q.setParameter(1, game.getId());
 		
 		@SuppressWarnings("unchecked")
