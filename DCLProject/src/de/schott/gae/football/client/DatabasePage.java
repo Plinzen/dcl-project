@@ -1,3 +1,18 @@
+/*
+Copyright 2012 Christopher Schott
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
 package de.schott.gae.football.client;
 
 import java.util.ArrayList;
@@ -9,7 +24,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -18,6 +32,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.schott.gae.football.shared.TransferObject;
 
+/**
+ * Page for choosing database implementation
+ * 
+ * @author Christopher Schott
+ *
+ */
 public class DatabasePage {
 	private DatabaseServiceAsync mDatabaseService;	
 	private AsyncCallback<List<TransferObject>> mDatabaseCallback;
@@ -29,7 +49,7 @@ public class DatabasePage {
 			mDatabaseService = GWT.create(DatabaseService.class);
 		}
 	
-		
+		// Setup callback
 		mDatabaseCallback = new AbstractAsyncCallback<List<TransferObject>>() {
 
 			@Override
@@ -40,12 +60,20 @@ public class DatabasePage {
 	
 	}
 	
+	/**
+	 * Create view for choosing implementation
+	 */
 	public void createView(){
 		// Ask for implementations
 		mDatabaseService.getDatastoreImplementations(mDatabaseCallback);
 		
 	}
 	
+	/**
+	 * Create page with possible solutions. async.
+	 * 
+	 * @param implementations
+	 */
 	private void createPage(List<TransferObject> implementations){
 		Panel root = RootPanel.get(FootballEntry.CONTENT_ID);
 		root.clear();
