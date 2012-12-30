@@ -1,6 +1,18 @@
-/**
- * 
- */
+/*
+Copyright 2012 Christopher Schott
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
 package de.schott.gae.football;
 
 import java.util.HashMap;
@@ -25,10 +37,17 @@ public class Configuration {
 	 */
 	public static final boolean RUN_LOCAL = false;
 	
+	/**
+	 * Parameter name in session and context to retrieve default implemenatation.
+	 */
 	private static final String PARAM_DAO = "dao.factory.implementation";	
 	private static final Configuration instance = new Configuration();
 	
+	/**
+	 * Map with all up to now instantiated DAOs
+	 */
 	private Map<String, DAOFactoryInterface> mDaoMap;
+	
 	private Configuration(){		
 		mDaoMap = new HashMap<String, DAOFactoryInterface>();
 	}
